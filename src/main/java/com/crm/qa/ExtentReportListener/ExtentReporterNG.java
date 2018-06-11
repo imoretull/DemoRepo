@@ -48,8 +48,18 @@ public class ExtentReporterNG implements IReporter {
 
 		if (tests.size() > 0) {
 			for (ITestResult result : tests.getAllResults()) {
-				test = extent.startTest(result.getMethod().getMethodName());
-
+				//test = extent.startTest(result.getMethod().getMethodName());  // displays method name
+				//test = extent.startTest(result.getMethod().getMethodName() + result.getMethod().getTestClass().getName());
+				
+				// display @Test attribute 'description' for better readability
+				//test = extent.startTest(result.getMethod().getDescription()); 
+				
+				// display both method name and attribute 'description' with line break
+				test = extent.startTest(
+								result.getMethod().getTestClass().getName() + " - " +
+								result.getMethod().getMethodName() + "() <br/>" + 
+								result.getMethod().getDescription()); 
+				
 				test.setStartedTime(getTime(result.getStartMillis()));
 				test.setEndedTime(getTime(result.getEndMillis()));
 
@@ -59,8 +69,7 @@ public class ExtentReporterNG implements IReporter {
 				if (result.getThrowable() != null) {
 					test.log(status, result.getThrowable());
 				} else {
-					test.log(status, "Test " + status.toString().toLowerCase()
-							+ "ed");
+					test.log(status, "Test " + status.toString().toLowerCase() + "ed");
 				}
 
 				extent.endTest(test);
