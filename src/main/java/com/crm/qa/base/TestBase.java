@@ -18,10 +18,13 @@ public class TestBase {
 	public static Properties prop;
 	
 	public TestBase(){
+
 		try {
+			
+			// Is there a way to get project file path instead of whole D path.
 			prop = new Properties();
-			FileInputStream ip = new FileInputStream(System.getProperty("user.dir")+ 
-					"/src/main/java/com/crm/qa/config/config.properties");
+			FileInputStream ip = new FileInputStream("D:\\myDevelopment\\workspaces\\"
+					+ "SampleProject\\DemoGITRepo\\src\\main\\java\\com\\crm\\qa\\config\\config.properties");
 			prop.load(ip);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -31,14 +34,15 @@ public class TestBase {
 	}
 	
 	public static void initialization(){
+		
 		String browserName = prop.getProperty("browser");
 		
+		// Store .exe in project folder and change path?
 		if(browserName.equals("chrome")){
-			// possibly refactor the path and store .exe at project level?
 			System.setProperty("webdriver.chrome.driver", "D:\\myDevelopment\\installs\\drivers\\chromedriver.exe");
 			driver = new ChromeDriver(); 
 		}
-		else if(browserName.equals("FF")){
+		else if(browserName.equals("firefox")){
 			System.setProperty("webdriver.gecko.driver", "D:\\myDevelopment\\installs\\drivers\\geckodriver.exe");
 			driver = new FirefoxDriver(); 
 		}
