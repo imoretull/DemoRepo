@@ -45,7 +45,7 @@ public class TestBase {
 		else if(browserName.equals("firefox")){
 			System.setProperty("webdriver.gecko.driver", "D:\\myDevelopment\\installs\\drivers\\geckodriver.exe");
 			driver = new FirefoxDriver(); 
-		}
+		}		
 		
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
@@ -53,4 +53,5 @@ public class TestBase {
 		driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
 		driver.get(prop.getProperty("url"));
 	}
+
 }

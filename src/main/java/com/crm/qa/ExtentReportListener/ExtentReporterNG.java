@@ -56,8 +56,8 @@ public class ExtentReporterNG implements IReporter {
 				
 				// display both method name and attribute 'description' with line break
 				test = extent.startTest(
-								result.getMethod().getTestClass().getName() + " - " +
-								result.getMethod().getMethodName() + "() <br/>" + 
+								result.getMethod().getTestClass().getName() + "<br/>" +
+								result.getMethod().getMethodName() + "<br/>" + 
 								result.getMethod().getDescription()); 
 				
 				test.setStartedTime(getTime(result.getStartMillis()));
