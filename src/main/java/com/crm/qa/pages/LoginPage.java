@@ -16,7 +16,7 @@ public class LoginPage extends TestBase{
 	WebElement password;
 	
 	@FindBy(xpath="//input[@type='submit']")
-	WebElement submit;
+	WebElement loginBtn;
 	
 	@FindBy(xpath="//button[contains(text(),'Sign Up')]")
 	WebElement signUpBtn;
@@ -29,7 +29,7 @@ public class LoginPage extends TestBase{
 		PageFactory.initElements(driver, this);
 	}
 	
-	//Actions:
+	// Actions:
 	public String validateLoginPageTitle() {
 		return driver.getTitle();
 	}
@@ -38,5 +38,12 @@ public class LoginPage extends TestBase{
 		return crmLogo.isDisplayed();
 	}
 	
+	public HomePage login(String un, String pw) {
+		username.sendKeys(un);
+		password.sendKeys(pw);
+		loginBtn.click();
+		
+		return new HomePage();
+	}
 
 }

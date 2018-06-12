@@ -6,29 +6,42 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.crm.qa.base.TestBase;
+import com.crm.qa.pages.HomePage;
+import com.crm.qa.pages.LoginPage;
 
-public class LoginPageTest extends TestBase{
+public class LoginPageTest extends TestBase {
 
+	LoginPage loginPage;
+	HomePage homePage;
+	
+	public LoginPageTest() {
+		super();
+	}
 		
 	@BeforeMethod
 	public void setUp() {
 		initialization();
+		loginPage = new LoginPage();
 	}
 	
-	@Test(description = "Verify the login", enabled = true, priority = 1)
-	public void testLogin() {
-		
-		System.out.println(driver.getTitle());
-		
+	@Test(priority = 1, description = "Verify Login page title", enabled = false)
+	public void loginPageTitleTest() {
+		String title = loginPage.validateLoginPageTitle();
+		Assert.assertEquals(title, "Free CRM software in the cloud powers sales and customer service", "Home page title not correct.");
 	}
 	
-	/*
-	@Test(description = "Verify title of homepage")
-	public void verifyTitle() {
-		
-		Assert.assertEquals(true, true);
+	@Test(priority = 2, description = "Verify Login CRM logo", enabled = false) 
+	public void crmLogoImageTest() {
+		boolean flag = loginPage.validateCRMImage();
+		Assert.assertTrue(flag, "Logo not correct");
 	}
-	*/
+	
+	@Test(priority = 3, description = "Verify Login with un and pw", invocationCount = 1) 
+	public void loginTest() {
+		homePage = loginPage.login(prop.getProperty("username"), prop.getProperty("password"));
+		
+		// verify HomePage title or other info after login later...
+	}
 	
 	@AfterMethod
 	public void TearDown() {
